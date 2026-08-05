@@ -4,26 +4,41 @@ export function renderGames(games) {
 
     container.innerHTML = "";
 
+    let currentDay = "";
+
     games.forEach(game => {
 
-        const gameDiv = document.createElement("div");
+        const gameDay = formatGameDay(game.start);
 
-        const date = document.createElement("div");
-        date.textContent = formatDate(game.start);
+        if (gameDay !== currentDay) {
+            currentDay = gameDay;
+            const heading = document.createElement("h2");
+            heading.textContent = gameDay;
+            heading.className = "schedule-date";
+            container.appendChild(heading);
+        }
+
+        const gameDiv = document.createElement("div");
+        gameDiv.className = "schedule-game";
+
+        const time = document.createElement("div");
+        time.textContent = formatGameTime(game.start);
+        time.className = "schedule-time";
 
         const title = document.createElement("div");
-        title.textContent =
-            `${game.team} ${game.gameType} ${game.opponent}`;
+        title.textContent = `${game.team} ${game.gameType} ${game.opponent}`;
+        title.className = "schedule-title";
 
         const location = document.createElement("div");
         location.textContent = game.location;
+        location.className = "schedule-location";
 
-        gameDiv.appendChild(date);
+        gameDiv.appendChild(time);
         gameDiv.appendChild(title);
         gameDiv.appendChild(location);
 
         container.appendChild(gameDiv);
-        container.appendChild(document.createElement("hr"));
+        container.appendChild(document.createElement("div"));
 
     });
 
@@ -39,4 +54,19 @@ function formatDate(date) {
         minute: "2-digit"
     });
 
+}
+
+function formatGameDay(date) {
+    return date.toLocaleDateString(undefined, {
+        weekday: "short",
+        month: "short",
+        day: "numeric"
+    });
+}
+
+function formatGameTime(date) {
+    return date.toLocaleTimeString(undefined, {
+        hour: "numeric",
+        minute: "2-digit"
+    });
 }
