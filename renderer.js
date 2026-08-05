@@ -29,16 +29,21 @@ export function renderGames(games) {
         }
         time.className = "schedule-time";
 
-        const title = document.createElement("div");
-        title.textContent = `${game.team} ${game.homeAway} ${game.opponent}`;
-        title.className = "schedule-title";
+        const title1 = document.createElement("div");
+        title1.textContent = `${game.team}`;
+        title1.className = "schedule-title";
+
+        const title2 = document.createElement("div");
+        title2.textContent = `${game.homeAway} ${game.opponent}`;
+        title2.className = "schedule-title";
 
         const location = document.createElement("div");
         location.textContent = shortLocation(game.location);
         location.className = "schedule-location";
 
         gameDiv.appendChild(time);
-        gameDiv.appendChild(title);
+        gameDiv.appendChild(title1);
+        gameDiv.appendChild(title2);
         gameDiv.appendChild(location);
 
         container.appendChild(gameDiv);
