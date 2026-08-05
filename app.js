@@ -11,17 +11,24 @@ async function start() {
 
     try {
 
-        const events = await getCalendarEvents(
-            CONFIG.calendars.varsity.id
-        );
-
-        const games = events.map(event =>
-            createGame(
-                CONFIG.calendars.varsity,
-                event
-            )
-        );
-        games = sortGames(games);
+        const games = [];
+        
+        for (const calendar of Object.values(CONFIG.calendars)) {
+            if (!calendar.enabled)
+                continue;
+        
+            const events =
+                await getCalendarEvents(calendar.id);
+        
+            events.forEach(event => {
+                games.push(
+                    createGame(calendar, event)
+                );
+            });
+        }
+        
+        games.sort((a, b) => a.start - b.start);
+        
         renderGames(games);
     }
     catch(error) {
