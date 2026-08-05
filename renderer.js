@@ -13,7 +13,7 @@ export function renderGames(games) {
 
         const title = document.createElement("div");
         title.textContent =
-            `${game.team.name} ${game.opponentPrefix} ${game.opponent}`;
+            `${game.team} ${game.gameType} ${game.opponent}`;
 
         const location = document.createElement("div");
         location.textContent = game.location;
