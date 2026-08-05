@@ -9,6 +9,9 @@ async function start() {
 
     try {
 
+        console.log("Calendar ID:");
+        console.log(CONFIG.calendars.varsity.id);
+    
         const events = await getCalendarEvents(
             CONFIG.calendars.varsity.id
         );
