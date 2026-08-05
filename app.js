@@ -1,6 +1,6 @@
 import { CONFIG } from "./config.js";
 import { getCalendarEvents } from "./calendar.js";
-
+import { createGame } from "./model.js";
 
 async function start() {
 
@@ -9,17 +9,18 @@ async function start() {
 
     try {
 
-        console.log("Calendar ID:");
-        console.log(CONFIG.calendars.varsity.id);
-    
         const events = await getCalendarEvents(
             CONFIG.calendars.varsity.id
         );
 
+        const games = events.map(event =>
+            createGame(
+                CONFIG.calendars.varsity,
+                event
+            )
+        );
 
-        console.log("Events returned:");
-        console.log(events);
-
+        console.log(games);
 
     }
     catch(error) {
