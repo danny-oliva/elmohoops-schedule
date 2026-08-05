@@ -30,7 +30,7 @@ export function renderGames(games) {
         time.className = "schedule-time";
 
         const title = document.createElement("div");
-        title.textContent = `${game.team} ${game.gameType} ${game.opponent}`;
+        title.textContent = `${game.team} ${game.homeAway} ${game.opponent}`;
         title.className = "schedule-title";
 
         const location = document.createElement("div");
