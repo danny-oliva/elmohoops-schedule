@@ -4,7 +4,7 @@ export function renderGames(games) {
     container.innerHTML = "";
 
 
-    if (games.length !== 0) {
+    if (games.length === 0) {
         renderEmptyState(container);
         return;
     }
