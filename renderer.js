@@ -22,7 +22,11 @@ export function renderGames(games) {
         gameDiv.className = "schedule-game";
 
         const time = document.createElement("div");
-        time.textContent = formatGameTime(game.start);
+        if (game.allDay) {
+            time.textContent = "TBD";
+        } else {
+            time.textContent = formatGameTime(game.start);
+        }
         time.className = "schedule-time";
 
         const title = document.createElement("div");
