@@ -1,6 +1,7 @@
 import { CONFIG } from "./config.js";
 import { getCalendarEvents } from "./calendar.js";
 import { createGame } from "./model.js";
+import { renderGames } from "./renderer.js";
 
 async function start() {
 
@@ -20,12 +21,7 @@ async function start() {
             )
         );
         
-        games.forEach(game => {
-            console.log(
-                `${game.team} ${game.gameType} ${game.opponent}`
-            );
-        });
-
+        renderGames(games);
     }
     catch(error) {
 
@@ -35,6 +31,5 @@ async function start() {
     }
 
 }
-
 
 start();
