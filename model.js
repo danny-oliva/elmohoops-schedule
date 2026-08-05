@@ -31,7 +31,7 @@ export function createGame(calendar, event) {
         team: calendar.name,
         teamShortTeam: calendar.shortName,
         teamColor: calendar.color,
-        opponent: parsed.opponent,
+        opponent: parsed.opponent.replace(/\s*\[Time TBD\]\s*/i, ""),
         homeAway: parsed.homeAway,
         allDay: allDay,
         start: event.start.dateTime
