@@ -44,18 +44,6 @@ export function renderGames(games) {
 
 }
 
-function formatDate(date) {
-
-    return date.toLocaleString(undefined, {
-        weekday: "long",
-        month: "long",
-        day: "numeric",
-        hour: "numeric",
-        minute: "2-digit"
-    });
-
-}
-
 function formatGameDay(date) {
     return date.toLocaleDateString(undefined, {
         weekday: "short",
