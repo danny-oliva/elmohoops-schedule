@@ -6,15 +6,23 @@ export function renderGames(games) {
 
     games.forEach(game => {
 
-        const div = document.createElement("div");
+        const gameDiv = document.createElement("div");
 
-        div.textContent =
-            `${formatDate(game.start)}
-${game.team} ${game.gameType} ${game.opponent}
-${game.location}`;
+        const date = document.createElement("div");
+        date.textContent = formatDate(game.start);
 
-        container.appendChild(div);
+        const title = document.createElement("div");
+        title.textContent =
+            `${game.team.name} ${game.opponentPrefix} ${game.opponent}`;
 
+        const location = document.createElement("div");
+        location.textContent = game.location;
+
+        gameDiv.appendChild(date);
+        gameDiv.appendChild(title);
+        gameDiv.appendChild(location);
+
+        container.appendChild(gameDiv);
         container.appendChild(document.createElement("hr"));
 
     });
