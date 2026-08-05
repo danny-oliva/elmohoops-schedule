@@ -2,6 +2,7 @@ import { CONFIG } from "./config.js";
 import { getCalendarEvents } from "./calendar.js";
 import { createGame } from "./model.js";
 import { renderGames } from "./renderer.js";
+import { sortGames } from "./utils.js";
 
 async function start() {
 
@@ -20,7 +21,7 @@ async function start() {
                 event
             )
         );
-        console.log(games[0]);
+        games = sortGames(games);
         renderGames(games);
     }
     catch(error) {
