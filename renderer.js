@@ -48,7 +48,8 @@ function formatGameDay(date) {
     return date.toLocaleDateString(undefined, {
         weekday: "short",
         month: "short",
-        day: "numeric"
+        day: "numeric",
+        year: "numeric"
     });
 }
 
