@@ -2,6 +2,10 @@ export const CONFIG = {
 
     apiKey: "AIzaSyDRcIoZD998EyGApL6rlC4PAy1HEUH34b4",
 
+    pagination: {
+        dateGroupsPerPage: 4
+    },
+
     calendars: {
         varsity: {
             name: "Varsity",
@@ -34,6 +38,5 @@ export const CONFIG = {
             id: "8vufl29g9kca99hc9rifrm9s50@group.calendar.google.com",
             enabled: true
         }
-    }
-
+    },
 };
