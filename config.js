@@ -1,6 +1,6 @@
 export const CONFIG = {
 
-    apiKey: "YOUR_NEW_API_KEY_HERE",
+    apiKey: "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",
 
     calendars: {
         varsity: {
