@@ -1,9 +1,14 @@
 export function renderGames(games) {
 
     const container = document.getElementById("schedule");
-
     container.innerHTML = "";
 
+
+    if (games.length !== 0) {
+        renderEmptyState(container);
+        return;
+    }
+    
     let currentDay = "";
 
     games.forEach(game => {
@@ -51,6 +56,31 @@ export function renderGames(games) {
 
     });
 
+}
+
+function renderEmptyState(container) {
+    const empty = document.createElement("div");
+    empty.className = "schedule-empty";
+
+    const icon = document.createElement("div");
+    icon.className = "schedule-empty-icon";
+    icon.textContent = "🏀";
+
+    const title = document.createElement("h2");
+    title.textContent = "No Upcoming Games";
+
+    const message1 = document.createElement("p");
+    message1.textContent = "The El Modena basketball schedule will be updated as new games are added.";
+
+    const message2 = document.createElement("p");
+    message2.textContent = "Go Vanguards!";
+
+    empty.appendChild(icon);
+    empty.appendChild(title);
+    empty.appendChild(message1);
+    empty.appendChild(message2);
+
+    container.appendChild(empty);
 }
 
 function formatGameDay(date) {
