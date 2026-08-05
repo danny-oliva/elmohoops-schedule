@@ -20,7 +20,7 @@ async function start() {
                 event
             )
         );
-        
+        console.log(games[0]);
         renderGames(games);
     }
     catch(error) {
