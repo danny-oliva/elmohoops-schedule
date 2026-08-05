@@ -1,0 +1,16 @@
+.schedule-game {
+    margin-bottom: 1.25rem;
+}
+
+.schedule-date {
+    margin-top: 2rem;
+    margin-bottom: 1rem;
+}
+
+.schedule-time {
+    font-weight: bold;
+}
+
+.schedule-location {
+    color: #666;
+}
