@@ -19,8 +19,12 @@ async function start() {
                 event
             )
         );
-
-        console.log(games);
+        
+        games.forEach(game => {
+            console.log(
+                `${game.team} ${game.gameType} ${game.opponent}`
+            );
+        });
 
     }
     catch(error) {
