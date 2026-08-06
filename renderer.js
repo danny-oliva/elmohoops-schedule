@@ -76,7 +76,7 @@ function createGameCard(game) {
     //
     if (game.description) {
         const notes = document.createElement("div");
-        notes.className = "schedule-notes";
+        notes.className = "schedule-description";
         notes.textContent = game.description;
 
         card.appendChild(notes);
