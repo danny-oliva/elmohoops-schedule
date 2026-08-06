@@ -39,6 +39,7 @@ function renderSubscribeButtons(container) {
         // create one button
         const button = document.createElement("a");
         button.className = "schedule-subscribe-button";
+        button.style.borderTopColor = calendar.teamColor;
         button.href = calendar.subscriptionUrl;
         button.target = "_blank";
         button.rel = "noopener noreferrer";
