@@ -6,7 +6,8 @@ export async function getCalendarEvents(calendarId) {
         key: CONFIG.apiKey,
         singleEvents: "true",
         orderBy: "startTime",
-        timeMin: new Date().toISOString()
+        timeMin: new Date().toISOString(),
+        maxResults: "100"
     });
 
 
