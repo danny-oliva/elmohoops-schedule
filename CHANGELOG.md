@@ -2,6 +2,8 @@
 
 All notable changes to this project will be documented in this file.
 
+not well updated in a while
+
 ---
 
 ## v0.4.0 - Multi-Calendar Support
