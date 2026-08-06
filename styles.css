@@ -1,3 +1,8 @@
+.schedule-subscribe-title {
+    font-size: 1.4rem;
+    margin-bottom: 12px;
+}
+
 .schedule-subscribe-buttons {
     display: flex;
     flex-wrap: wrap;
