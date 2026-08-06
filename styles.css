@@ -53,10 +53,12 @@
     color: #666;
     font-size: .9rem;
     text-decoration: none;
+    transition: color .15s ease;
+    display: inline-block;
 }
 
 .schedule-location:hover {
-    text-decoration: underline;
+    color: #0000FF;
 }
 
 .schedule-description {
