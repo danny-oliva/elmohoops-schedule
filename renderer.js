@@ -60,6 +60,15 @@ function createGameCard(game) {
     card.className = "schedule-game";
 
     //
+    // Color Stripe
+    //
+    const stripe = document.createElement("div");
+    stripe.className = "schedule-stripe";
+    stripe.style.backgroundColor = game.teamColor;
+    
+    card.appendChild(stripe);
+    
+    //
     // Time
     //
     const time = document.createElement("div");
