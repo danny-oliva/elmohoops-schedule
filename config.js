@@ -18,7 +18,7 @@ export const CONFIG = {
         jv: {
             name: "JV",
             shortName: "JV",
-            color: "#5F6368",
+            color: "#6E6E6E",
             id: "mmo9lf13l4kvemp53q5hsfsocc@group.calendar.google.com",
             enabled: true
         },
@@ -26,7 +26,7 @@ export const CONFIG = {
         freshman: {
             name: "Freshman",
             shortName: "F",
-            color: "#6B4FA3",
+            color: "#8B5CF6",
             id: "ae85c9c65997b1865730a768f565824c72d0341cdaf127ccf99236c683f5da94@group.calendar.google.com",
             enabled: false
         },
@@ -34,7 +34,7 @@ export const CONFIG = {
         froshSoph: {
             name: "Frosh/Soph",
             shortName: "FS",
-            color: "#2F6DB3",
+            color: "#2F80ED",
             id: "8vufl29g9kca99hc9rifrm9s50@group.calendar.google.com",
             enabled: true
         }
