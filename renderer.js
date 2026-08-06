@@ -43,7 +43,7 @@ export function renderGames(games) {
         title2.className = "schedule-title";
 
         const location = document.createElement("div");
-        location.textContent = shortLocation(game.location);
+        location.textContent = game.shortLocation;
         location.className = "schedule-location";
 
         gameDiv.appendChild(time);
@@ -97,8 +97,4 @@ function formatGameTime(date) {
         hour: "numeric",
         minute: "2-digit"
     });
-}
-
-function shortLocation(location) {
-    return location.split(",")[0];
 }
