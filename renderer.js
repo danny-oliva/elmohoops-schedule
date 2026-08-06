@@ -3,27 +3,54 @@ export function renderGames(games) {
     const container = document.getElementById("schedule");
     container.innerHTML = "";
 
-
     if (games.length === 0) {
         renderEmptyState(container);
         return;
     }
-    
+
     let currentDay = "";
+    let dayGamesContainer = null;
 
     games.forEach(game => {
 
         const gameDay = formatGameDay(game.start);
 
         if (gameDay !== currentDay) {
+
             currentDay = gameDay;
+
+            //
+            // Create the day section
+            //
+            const daySection = document.createElement("section");
+            daySection.className = "schedule-day";
+
+            //
+            // Date heading
+            //
             const heading = document.createElement("h2");
-            heading.textContent = gameDay;
             heading.className = "schedule-date";
-            container.appendChild(heading);
+            heading.textContent = gameDay;
+
+            //
+            // Card container
+            //
+            dayGamesContainer = document.createElement("div");
+            dayGamesContainer.className = "schedule-day-games";
+
+            //
+            // Build hierarchy
+            //
+            daySection.appendChild(heading);
+            daySection.appendChild(dayGamesContainer);
+
+            container.appendChild(daySection);
         }
 
-        container.appendChild(createGameCard(game));
+        //
+        // Add this game card to the current day
+        //
+        dayGamesContainer.appendChild(createGameCard(game));
     });
 }
 
