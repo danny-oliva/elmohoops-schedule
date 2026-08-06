@@ -22,7 +22,7 @@ function renderSubscribeButtons(container) {
     
     const heading = document.createElement("h2");
     heading.className = "schedule-subscribe-title";
-    heading.textContent = "Subscribe to Calendars";
+    heading.textContent = "Subscribe";
     
     section.appendChild(heading);
 
