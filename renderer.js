@@ -23,39 +23,66 @@ export function renderGames(games) {
             container.appendChild(heading);
         }
 
-        const gameDiv = document.createElement("div");
-        gameDiv.className = "schedule-game";
-
-        const time = document.createElement("div");
-        if (game.allDay) {
-            time.textContent = "TBD";
-        } else {
-            time.textContent = formatGameTime(game.start);
-        }
-        time.className = "schedule-time";
-
-        const title1 = document.createElement("div");
-        title1.textContent = `${game.team}`;
-        title1.className = "schedule-title";
-
-        const title2 = document.createElement("div");
-        title2.textContent = `${game.homeAway} ${game.opponent}`;
-        title2.className = "schedule-title";
-
-        const location = document.createElement("div");
-        location.textContent = game.shortLocation;
-        location.className = "schedule-location";
-
-        gameDiv.appendChild(time);
-        gameDiv.appendChild(title1);
-        gameDiv.appendChild(title2);
-        gameDiv.appendChild(location);
-
-        container.appendChild(gameDiv);
-        container.appendChild(document.createElement("div"));
-
+        container.appendChild(createGameCard(game));
     });
+}
 
+function createGameCard(game) {
+
+    const card = document.createElement("div");
+    card.className = "schedule-game";
+
+    //
+    // Time
+    //
+    const time = document.createElement("div");
+    time.className = "schedule-time";
+    time.textContent = game.allDay ? "TBD" : formatGameTime(game.start);
+
+    card.appendChild(time);
+
+    //
+    // Team
+    //
+    const team = document.createElement("div");
+    team.className = "schedule-team";
+    team.textContent = game.team;
+
+    // Use the team color from config.js
+    team.style.color = game.color;
+
+    card.appendChild(team);
+
+    //
+    // Opponent
+    //
+    const opponent = document.createElement("div");
+    opponent.className = "schedule-opponent";
+    opponent.textContent = `${game.homeAway} ${game.opponent}`;
+
+    card.appendChild(opponent);
+
+    //
+    // Location
+    //
+    const location = document.createElement("div");
+    location.className = "schedule-location";
+    location.textContent = `📍 ${game.shortLocation}`;
+
+    card.appendChild(location);
+
+    //
+    // Optional notes
+    //
+    if (game.description) {
+        const notes = document.createElement("div");
+        notes.className = "schedule-notes";
+        notes.textContent = game.description;
+
+        card.appendChild(notes);
+    }
+
+    return card;
 }
 
 function renderEmptyState(container) {
