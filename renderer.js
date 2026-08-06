@@ -49,7 +49,7 @@ function createGameCard(game) {
     team.textContent = game.team;
 
     // Use the team color from config.js
-    team.style.color = game.color;
+    team.style.color = game.teamColor;
 
     card.appendChild(team);
 
