@@ -41,6 +41,7 @@ export function createGame(calendar, event) {
             ? new Date(event.end.dateTime)
             : parseGoogleDate(event.end.date),
         location: event.location || "",
+        shortLocation: event.location ? event.location.split(",")[0] : "",
         description: event.description || "",
         source: event
     };
