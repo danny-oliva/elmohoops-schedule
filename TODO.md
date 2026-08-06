@@ -8,6 +8,7 @@
 - [ ] Team filter buttons
 - [ ] Team colors
 - [ ] Responsive layout
+- [ ] Need button to go to full Google Calendar
 
 ## Future
 - [ ] "Next Game" widget
