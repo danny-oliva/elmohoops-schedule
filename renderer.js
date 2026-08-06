@@ -56,7 +56,7 @@ export function renderGames(games) {
 
 function createGameCard(game) {
 
-    const card = document.createElement("div");
+    const card = document.createElement("article");
     card.className = "schedule-game";
 
     //
