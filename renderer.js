@@ -1,13 +1,77 @@
-export function renderGames(games) {
+export function renderSchedule(games) {
 
     const container = document.getElementById("schedule");
     container.innerHTML = "";
 
+    renderSubscribeButtons(container);
+
     if (games.length === 0) {
         renderEmptyState(container);
-        return;
+    } else {
+        renderGames(container, games);
     }
+}
 
+function renderSubscribeButtons(container) {
+    const section = document.createElement("section");
+    section.className = "schedule-subscribe";
+
+    container.appendChild(section);
+    
+    const heading = document.createElement("h2");
+    heading.className = "schedule-subscribe-title";
+    heading.textContent = "Subscribe to Calendars";
+    
+    section.appendChild(heading);
+
+    const buttons = document.createElement("div");
+    buttons.className = "schedule-subscribe-buttons";
+    
+    section.appendChild(buttons);
+
+    Object.values(CONFIG.calendars).forEach(calendar => {
+    
+        if (!calendar.enabled)
+            return;
+    
+        // create one button
+        const button = document.createElement("a");
+        button.className = "schedule-subscribe-button";
+        button.href = calendar.subscriptionUrl;
+        button.target = "_blank";
+        button.rel = "noopener noreferrer";
+        button.textContent = calendar.name;
+        buttons.appendChild(button);
+    });
+}
+
+function renderEmptyState(container) {
+    const empty = document.createElement("div");
+    empty.className = "schedule-empty";
+
+    const icon = document.createElement("div");
+    icon.className = "schedule-empty-icon";
+    icon.textContent = "🏀";
+
+    const title = document.createElement("h2");
+    title.textContent = "No Upcoming Games";
+
+    const message1 = document.createElement("p");
+    message1.textContent = "The El Modena basketball schedule will be updated as new games are added.";
+
+    const message2 = document.createElement("p");
+    message2.textContent = "Go Vanguards!";
+
+    empty.appendChild(icon);
+    empty.appendChild(title);
+    empty.appendChild(message1);
+    empty.appendChild(message2);
+
+    container.appendChild(empty);
+}
+
+function renderGames(container, games) {
+    
     let currentDay = "";
     let dayGamesContainer = null;
 
@@ -122,31 +186,6 @@ function createGameCard(game) {
     }
 
     return card;
-}
-
-function renderEmptyState(container) {
-    const empty = document.createElement("div");
-    empty.className = "schedule-empty";
-
-    const icon = document.createElement("div");
-    icon.className = "schedule-empty-icon";
-    icon.textContent = "🏀";
-
-    const title = document.createElement("h2");
-    title.textContent = "No Upcoming Games";
-
-    const message1 = document.createElement("p");
-    message1.textContent = "The El Modena basketball schedule will be updated as new games are added.";
-
-    const message2 = document.createElement("p");
-    message2.textContent = "Go Vanguards!";
-
-    empty.appendChild(icon);
-    empty.appendChild(title);
-    empty.appendChild(message1);
-    empty.appendChild(message2);
-
-    container.appendChild(empty);
 }
 
 function formatGameDay(date) {
