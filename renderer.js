@@ -98,9 +98,15 @@ function createGameCard(game) {
     //
     // Location
     //
-    const location = document.createElement("div");
+    const location = document.createElement("a");
     location.className = "schedule-location";
     location.textContent = `📍 ${game.shortLocation}`;
+    const mapsUrl =
+        "https://www.google.com/maps/search/?api=1&query=" +
+        encodeURIComponent(game.location);
+    location.href = mapsUrl;
+    location.target = "_blank";
+    location.rel = "noopener noreferrer";
 
     card.appendChild(location);
 
