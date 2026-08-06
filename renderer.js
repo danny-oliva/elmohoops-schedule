@@ -57,7 +57,7 @@ export function renderGames(games) {
 function createGameCard(game) {
 
     const card = document.createElement("article");
-    card.className = "schedule-game";
+    card.className = "schedule-card";
 
     //
     // Color Stripe
