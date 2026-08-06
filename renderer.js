@@ -1,3 +1,5 @@
+import { CONFIG } from "./config.js";
+
 export function renderSchedule(games) {
 
     const container = document.getElementById("schedule");
