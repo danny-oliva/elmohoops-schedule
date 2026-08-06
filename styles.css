@@ -1,4 +1,10 @@
 
+.schedule-day-games {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+
 .schedule-game {
     border: 1px solid #ddd;
     border-radius: 8px;
