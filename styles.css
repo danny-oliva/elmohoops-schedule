@@ -1,16 +1,36 @@
-.schedule-game {
-    margin-bottom: 1.25rem;
-}
 
-.schedule-date {
-    margin-top: 2rem;
-    margin-bottom: 1rem;
+.schedule-game {
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 16px;
+    margin-bottom: 16px;
+    background: white;
 }
 
 .schedule-time {
+    font-size: .9rem;
     font-weight: bold;
+    color: #555;
+}
+
+.schedule-team {
+    font-size: 1.3rem;
+    font-weight: bold;
+    margin-top: 8px;
+}
+
+.schedule-opponent {
+    font-size: 1rem;
+    margin-top: 4px;
 }
 
 .schedule-location {
+    margin-top: 12px;
     color: #666;
+}
+
+.schedule-description {
+    margin-top: 8px;
+    font-style: italic;
+    color: #777;
 }
