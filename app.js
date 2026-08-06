@@ -1,7 +1,7 @@
 import { CONFIG } from "./config.js";
 import { getCalendarEvents } from "./calendar.js";
 import { createGame } from "./model.js";
-import { renderGames } from "./renderer.js";
+import { renderSchedule } from "./renderer.js";
 import { sortGames } from "./utils.js";
 
 async function start() {
@@ -10,7 +10,6 @@ async function start() {
 
 
     try {
-
         const games = [];
         
         for (const calendar of Object.values(CONFIG.calendars)) {
@@ -29,15 +28,12 @@ async function start() {
         
         games.sort((a, b) => a.start - b.start);
         
-        renderGames(games);
+        renderSchedule(games);
     }
     catch(error) {
-
         console.error("ERROR:");
         console.error(error);
-
     }
-
 }
 
 start();
