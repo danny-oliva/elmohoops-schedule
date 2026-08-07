@@ -127,6 +127,16 @@ function createGameCard(game) {
     card.className = "schedule-card";
 
     //
+    // Create link to google calendar event
+    //
+    if (game.source?.htmlLink) {
+        card.style.cursor = "pointer";
+        card.addEventListener("click", () => {
+            window.open(game.source.htmlLink, "_blank");
+        });
+    }
+
+    //
     // Color Stripe
     //
     const stripe = document.createElement("div");
@@ -174,6 +184,9 @@ function createGameCard(game) {
     location.href = mapsUrl;
     location.target = "_blank";
     location.rel = "noopener noreferrer";
+    location.addEventListener("click", (event) => {
+        event.stopPropagation();
+    });
 
     card.appendChild(location);
 
