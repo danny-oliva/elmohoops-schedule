@@ -53,6 +53,10 @@
     gap: 20px;
 }
 
+.schedule-day {
+    color: #7A1F2B;
+}
+
 .schedule-card {
     flex: 0 0 200px;
     min-width: 200px;
