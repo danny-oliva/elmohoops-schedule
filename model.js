@@ -23,9 +23,34 @@ function parseTitle(title) {
     };
 }
 
+function formatGameDay(date) {
+    return date.toLocaleDateString(undefined, {
+        weekday: "short",
+        month: "short",
+        day: "numeric",
+        year: "numeric"
+    });
+}
+
+function formatGameTime(date) {
+    return date.toLocaleTimeString(undefined, {
+        hour: "numeric",
+        minute: "2-digit"
+    });
+}
+
 export function createGame(calendar, event) {
     const parsed = parseTitle(event.summary);
     const allDay = !!event.start.date;
+    const startTime = event.start.dateTime
+        ? new Date(event.start.dateTime)
+        : parseGoogleDate(event.start.date);
+    const endTime = event.end.dateTime
+        ? new Date(event.end.dateTime)
+        : parseGoogleDate(event.end.date);
+    const strGameDay = formatGameDay(startTime);
+    const strGameTime = allDay ? "TBD" : formatGameTime(startTime);
+    
 
     return {
         team: calendar.name,
@@ -34,12 +59,10 @@ export function createGame(calendar, event) {
         opponent: parsed.opponent.replace(/\s*\[Time TBD\]\s*/i, ""),
         homeAway: parsed.homeAway,
         allDay: allDay,
-        start: event.start.dateTime
-            ? new Date(event.start.dateTime)
-            : parseGoogleDate(event.start.date),
-        end: event.end.dateTime
-            ? new Date(event.end.dateTime)
-            : parseGoogleDate(event.end.date),
+        gameDay: strGameDay,
+        gameTime: strGameTime,
+        start: startTime,
+        end: endTime,
         location: event.location || "",
         shortLocation: event.location ? event.location.split(",")[0] : "",
         description: event.description || "",

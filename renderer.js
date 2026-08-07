@@ -1,17 +1,37 @@
 import { CONFIG } from "./config.js";
 
-export function renderSchedule(games) {
+const DAYS_PER_PAGE = 4;
+let currentPage = 0;
+let totalPages = 0;
+let dayGroups = [];
 
+export function renderSchedulePage(games) {
+
+    if (games.length === 0) {
+        const container = document.getElementById("schedule");
+        container.innerHTML = "";
+    
+        renderSubscribeButtons(container);
+        renderEmptyState(container);
+    } else {
+        dayGroups = groupGamesByDay(games);
+        renderSchedule();
+    }
+}
+
+function renderSchedule() {
     const container = document.getElementById("schedule");
     container.innerHTML = "";
 
     renderSubscribeButtons(container);
+    const page = getCurrentPage(dayGroups);
+    renderGames(container, page);
+    renderPagination(container, dayGroups);
 
-    if (games.length === 0) {
-        renderEmptyState(container);
-    } else {
-        renderGames(container, games);
-    }
+    document.getElementById("schedule").scrollIntoView({
+        behavior: "smooth",
+        block: "start"
+    });
 }
 
 function renderSubscribeButtons(container) {
@@ -73,52 +93,105 @@ function renderEmptyState(container) {
     container.appendChild(empty);
 }
 
-function renderGames(container, games) {
+function groupGamesByDay(games) {
+    const dayGroups = [];
+    for (const game of games) {
+        const key = game.gameDay;
+        let group = dayGroups.find(
+            g => g.gameDay === key
+        );
+        if (!group) {
+            group = {
+                gameDay: key,
+                games: []
+            };   
+            dayGroups.push(group);
+        }
+        group.games.push(game);
+    }
+    return dayGroups;
+}
+
+function renderPagination(container, dayGroups) {
+    totalPages = Math.ceil(dayGroups.length / DAYS_PER_PAGE);
+
+    if (totalPages <= 1)
+        return;
+
+    const nav = document.createElement("nav");
+    nav.className = "schedule-pagination";
+
+    // Content wrapper
+    const content = document.createElement("div");
+    content.className = "schedule-pagination-content";
+
+    const previous = document.createElement("button");
+    previous.textContent = "← Prev";
+    previous.addEventListener("click", previousPage);
+    previous.disabled = currentPage === 0;
+
+    const label = document.createElement("span");
+    label.className = "schedule-page-label";
+    label.textContent = `${currentPage + 1} / ${totalPages}`;
+
+    const next = document.createElement("button");
+    next.textContent = "Next →";
+    next.addEventListener("click", nextPage);
+    next.disabled = currentPage === totalPages - 1;
+
+    content.appendChild(previous);
+    content.appendChild(label);
+    content.appendChild(next);
     
-    let currentDay = "";
-    let dayGamesContainer = null;
+    nav.appendChild(content);
 
-    games.forEach(game => {
+    container.appendChild(nav);
+}
 
-        const gameDay = formatGameDay(game.start);
+function renderGames(container, dayGroups) {
 
-        if (gameDay !== currentDay) {
+    for (const dayGroup of dayGroups) {
+        const daySection = createDaySection(dayGroup);
 
-            currentDay = gameDay;
+        const dayGamesContainer = document.createElement("div");
+        dayGamesContainer.className = "schedule-day-games";
 
-            //
-            // Create the day section
-            //
-            const daySection = document.createElement("section");
-            daySection.className = "schedule-day";
-
-            //
-            // Date heading
-            //
-            const heading = document.createElement("h2");
-            heading.className = "schedule-date";
-            heading.textContent = gameDay;
-
-            //
-            // Card container
-            //
-            dayGamesContainer = document.createElement("div");
-            dayGamesContainer.className = "schedule-day-games";
-
-            //
-            // Build hierarchy
-            //
-            daySection.appendChild(heading);
-            daySection.appendChild(dayGamesContainer);
-
-            container.appendChild(daySection);
+        for (const game of dayGroup.games) {
+            dayGamesContainer.appendChild(createGameCard(game));
         }
 
-        //
-        // Add this game card to the current day
-        //
-        dayGamesContainer.appendChild(createGameCard(game));
-    });
+        daySection.appendChild(dayGamesContainer);
+        container.appendChild(daySection);
+    }
+}
+
+function createDaySection(dayGroup) {
+    //
+    // Create the day section
+    //
+    const daySection = document.createElement("section");
+    daySection.className = "schedule-day";
+
+    //
+    // Date heading
+    //
+    const heading = document.createElement("h2");
+    heading.className = "schedule-date";
+    heading.textContent = dayGroup.gameDay;
+
+    //
+    // Card container
+    //
+    //dayGamesContainer = document.createElement("div");
+    //dayGamesContainer.className = "schedule-day-games";
+
+    //
+    // Build hierarchy
+    //
+    daySection.appendChild(heading);
+    //daySection.appendChild(dayGamesContainer);
+
+    return daySection;
 }
 
 function createGameCard(game) {
@@ -150,7 +223,7 @@ function createGameCard(game) {
     //
     const time = document.createElement("div");
     time.className = "schedule-time";
-    time.textContent = game.allDay ? "TBD" : formatGameTime(game.start);
+    time.textContent = game.gameTime;
 
     card.appendChild(time);
 
@@ -204,18 +277,22 @@ function createGameCard(game) {
     return card;
 }
 
-function formatGameDay(date) {
-    return date.toLocaleDateString(undefined, {
-        weekday: "short",
-        month: "short",
-        day: "numeric",
-        year: "numeric"
-    });
+function getCurrentPage(dayGroups) {
+    const start = currentPage * DAYS_PER_PAGE;
+    const end = start + DAYS_PER_PAGE;
+    return dayGroups.slice(start, end);
 }
 
-function formatGameTime(date) {
-    return date.toLocaleTimeString(undefined, {
-        hour: "numeric",
-        minute: "2-digit"
-    });
+function previousPage() {
+    if (currentPage > 0) {
+        currentPage--;
+        renderSchedule();
+    }
+}
+
+function nextPage() {
+    if (currentPage < totalPages) {
+        currentPage++;
+        renderSchedule();
+    }
 }
