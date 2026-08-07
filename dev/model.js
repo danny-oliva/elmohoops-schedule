@@ -49,7 +49,7 @@ export function createGame(calendar, event) {
         ? new Date(event.end.dateTime)
         : parseGoogleDate(event.end.date);
     const strGameDay = formatGameDay(startTime);
-    const strGameTime = allDay ? "TBD" : formatGametime(startTime);
+    const strGameTime = allDay ? "TBD" : formatGameTime(startTime);
     
 
     return {
