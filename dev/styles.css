@@ -135,6 +135,13 @@
     color: #777;
 }
 
+.schedule-pagination {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 30px 0;
+}
+
 @media (hover: none) {
     .schedule-subscribe-buttons {
         flex-direction: column;
