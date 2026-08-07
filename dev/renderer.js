@@ -1,5 +1,8 @@
 import { CONFIG } from "./config.js";
 
+const DAYS_PER_PAGE = 4;
+let currentPage = 0;
+
 export function renderSchedule(games) {
 
     const container = document.getElementById("schedule");
@@ -11,8 +14,10 @@ export function renderSchedule(games) {
         renderEmptyState(container);
     } else {
         const dayGroups = groupGamesByDay(games);
+        const page = getCurrentPage(dayGroups);
+        console.log(page);
         console.log(dayGroups);
-        renderGames(container, dayGroups);
+        renderGames(container, page);
     }
 }
 
@@ -109,51 +114,6 @@ function renderGames(container, dayGroups) {
         daySection.appendChild(dayGamesContainer);
         container.appendChild(daySection);
     }
-    /*
-    let currentDay = "";
-    let dayGamesContainer = null;
-
-    games.forEach(game => {
-
-        const gameDay = formatGameDay(game.start);
-
-        if (gameDay !== currentDay) {
-
-            currentDay = gameDay;
-
-            //
-            // Create the day section
-            //
-            const daySection = document.createElement("section");
-            daySection.className = "schedule-day";
-
-            //
-            // Date heading
-            //
-            const heading = document.createElement("h2");
-            heading.className = "schedule-date";
-            heading.textContent = gameDay;
-
-            //
-            // Card container
-            //
-            dayGamesContainer = document.createElement("div");
-            dayGamesContainer.className = "schedule-day-games";
-
-            //
-            // Build hierarchy
-            //
-            daySection.appendChild(heading);
-            daySection.appendChild(dayGamesContainer);
-
-            container.appendChild(daySection);
-        }
-
-        //
-        // Add this game card to the current day
-        //
-        dayGamesContainer.appendChild(createGameCard(game));
-    });*/
 }
 
 function createDaySection(dayGroup) {
@@ -214,7 +174,7 @@ function createGameCard(game) {
     //
     const time = document.createElement("div");
     time.className = "schedule-time";
-    time.textContent = game.allDay ? "TBD" : formatGameTime(game.start);
+    time.textContent = game.gameTime;
 
     card.appendChild(time);
 
@@ -268,18 +228,8 @@ function createGameCard(game) {
     return card;
 }
 
-function formatGameDay(date) {
-    return date.toLocaleDateString(undefined, {
-        weekday: "short",
-        month: "short",
-        day: "numeric",
-        year: "numeric"
-    });
-}
-
-function formatGameTime(date) {
-    return date.toLocaleTimeString(undefined, {
-        hour: "numeric",
-        minute: "2-digit"
-    });
+function getCurrentPage(dayGroups) {
+    const start = currentPage * DAYS_PER_PAGE;
+    const end = start + DAYS_PER_PAGE;
+    return dayGroups.slice(start, end);
 }
