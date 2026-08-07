@@ -109,16 +109,16 @@ function renderPagination(container, dayGroups) {
     nav.className = "schedule-pagination";
 
     const previous = document.createElement("button");
-    previous.textContent = "◀ Previous";
+    previous.textContent = "← Prev";
     nav.appendChild(previous);
 
     const label = document.createElement("span");
     label.className = "schedule-page-label";
-    label.textContent = `Page ${currentPage + 1} of ${totalPages}`;
+    label.textContent = `${currentPage + 1} / ${totalPages}`;
     nav.appendChild(label);
 
     const next = document.createElement("button");
-    next.textContent = "Next ▶";
+    next.textContent = "Next →";
     nav.appendChild(next);
 
     container.appendChild(nav);
