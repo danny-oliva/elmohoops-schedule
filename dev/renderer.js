@@ -122,6 +122,8 @@ function renderPagination(container, dayGroups) {
 
     const previous = document.createElement("button");
     previous.textContent = "← Prev";
+    previous.addEventListener("click", previousPage);
+    previous.disabled = currentPage === 0;
 
     const label = document.createElement("span");
     label.className = "schedule-page-label";
@@ -129,6 +131,8 @@ function renderPagination(container, dayGroups) {
 
     const next = document.createElement("button");
     next.textContent = "Next →";
+    next.addEventListener("click", nextPage);
+    next.disabled = currentPage === totalPages - 1;
 
     content.appendChild(previous);
     content.appendChild(label);
