@@ -15,9 +15,9 @@ export function renderSchedule(games) {
     } else {
         const dayGroups = groupGamesByDay(games);
         const page = getCurrentPage(dayGroups);
-        console.log(page);
-        console.log(dayGroups);
+        //console.log(dayGroups);
         renderGames(container, page);
+        renderPagination(container, dayGroups);
     }
 }
 
@@ -97,6 +97,31 @@ function groupGamesByDay(games) {
         group.games.push(game);
     }
     return dayGroups;
+}
+
+function renderPagination(container, dayGroups) {
+    const totalPages = Math.ceil(dayGroups.length / DAYS_PER_PAGE);
+
+    if (totalPages <= 1)
+        return;
+
+    const nav = document.createElement("nav");
+    nav.className = "schedule-pagination";
+
+    const previous = document.createElement("button");
+    previous.textContent = "◀ Previous";
+    nav.appendChild(previous);
+
+    const label = document.createElement("span");
+    label.className = "schedule-page-label";
+    label.textContent = `Page ${currentPage + 1} of ${totalPages}`;
+    nav.appendChild(label);
+
+    const next = document.createElement("button");
+    next.textContent = "Next ▶";
+    nav.appendChild(next);
+
+    container.appendChild(nav);
 }
 
 function renderGames(container, dayGroups) {
