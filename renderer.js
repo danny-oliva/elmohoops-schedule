@@ -1,6 +1,6 @@
 import { CONFIG } from "./config.js";
 
-const DAYS_PER_PAGE = 4;
+const DAYS_PER_PAGE = 3;
 let currentPage = 0;
 let totalPages = 0;
 let dayGroups = [];
