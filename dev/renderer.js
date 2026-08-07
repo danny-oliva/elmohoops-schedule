@@ -73,6 +73,14 @@ function renderEmptyState(container) {
     container.appendChild(empty);
 }
 
+function groupGamesByDay(games) {
+    const dayGroups = [];
+
+    for (const game of games) {
+        
+    }
+}
+
 function renderGames(container, games) {
     
     let currentDay = "";
