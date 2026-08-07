@@ -138,20 +138,14 @@
 .schedule-pagination {
     background: white;
     border: 1px solid #ddd;
+    border-top: 12px solid #9E1B32;
     border-radius: 8px;
-    margin: 40px auto;
-    max-width: 340px;
+    overflow: hidden;
 }
 
 .schedule-pagination:hover {
     box-shadow: 0 4px 10px rgba(0,0,0,.12);
     border-color: #9E1B32;
-}
-
-.schedule-pagination-stripe {
-    margin: 0;
-    border-radius: 0;
-    background: #9E1B32;
 }
 
 .schedule-pagination-content {
