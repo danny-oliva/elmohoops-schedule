@@ -136,11 +136,13 @@
 }
 
 .schedule-pagination {
-    background: white;
+    background: #fafafa;
     border: 1px solid #ddd;
     border-top: 12px solid #9E1B32;
     border-radius: 8px;
     overflow: hidden;
+    width: 340px;
+    margin: 40px auto;
 }
 
 .schedule-pagination:hover {
