@@ -27,6 +27,11 @@ function renderSchedule() {
     const page = getCurrentPage(dayGroups);
     renderGames(container, page);
     renderPagination(container, dayGroups);
+
+    document.getElementById("schedule").scrollIntoView({
+        behavior: "smooth",
+        block: "start"
+    });
 }
 
 function renderSubscribeButtons(container) {
