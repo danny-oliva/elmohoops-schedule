@@ -42,7 +42,7 @@ function formatGameTime(date) {
 export function createGame(calendar, event) {
     const parsed = parseTitle(event.summary);
     const allDay = !!event.start.date;
-    const statTime = event.start.dateTime
+    const startTime = event.start.dateTime
         ? new Date(event.start.dateTime)
         : parseGoogleDate(event.start.date);
     const endTime = event.end.dateTime
