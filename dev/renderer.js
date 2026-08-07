@@ -77,14 +77,11 @@ function renderEmptyState(container) {
 
 function groupGamesByDay(games) {
     const dayGroups = [];
-
     for (const game of games) {
         const key = game.gameDay;
-
         let group = dayGroups.find(
             g => g.date === key
         );
-
         if (!group) {
             group = {
                 gameDay: key,
@@ -92,10 +89,8 @@ function groupGamesByDay(games) {
             };   
             dayGroups.push(group);
         }
-
         group.games.push(game);
     }
-
     return dayGroups;
 }
 
@@ -110,6 +105,9 @@ function renderGames(container, dayGroups) {
         for (const game of dayGroup.games) {
             dayGamesContainer.appendChild(createGameCard(game));
         }
+
+        daySection.appendChild(dayGamesContainer);
+        container.appendChild(daySection);
     }
     /*
     let currentDay = "";
