@@ -82,6 +82,7 @@
     padding: 16px;
     margin-bottom: 16px;
     background: white;
+    position: relative;
     transition: transform .15s ease, box-shadow .15s ease;
 }
 
@@ -89,6 +90,21 @@
     transform: translateY(-2px);
     box-shadow: 0 4px 10px rgba(0,0,0,.12);
     border-color: #9E1B32;
+}
+
+.schedule-card::after {
+    content: "📅";
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    font-size: 1.2rem;
+    opacity: 0;
+    transition: opacity .15s ease;
+    pointer-events: none;
+}
+
+.schedule-card:hover::after {
+    opacity: 1;
 }
 
 .schedule-stripe {
