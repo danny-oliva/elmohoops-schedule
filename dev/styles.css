@@ -172,6 +172,13 @@
     color: #9E1B32;
 }
 
+.schedule-pagination button:disabled {
+    color: #cfcfcf;
+    cursor: default;
+    pointer-events: none;
+    opacity: .45;
+}
+
 .schedule-page-label {
     font-size: 1.05rem;
     font-weight: 700;
