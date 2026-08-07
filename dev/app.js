@@ -28,7 +28,7 @@ async function start() {
         
         games.sort((a, b) => a.start - b.start);
         
-        renderSchedule(games);
+        renderSchedulePage(games);
     }
     catch(error) {
         console.error("ERROR:");
