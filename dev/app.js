@@ -1,7 +1,7 @@
 import { CONFIG } from "./config.js";
 import { getCalendarEvents } from "./calendar.js";
 import { createGame } from "./model.js";
-import { renderSchedule } from "./renderer.js";
+import { renderSchedulePage } from "./renderer.js";
 import { sortGames } from "./utils.js";
 
 async function start() {
