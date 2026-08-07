@@ -2,23 +2,31 @@ import { CONFIG } from "./config.js";
 
 const DAYS_PER_PAGE = 4;
 let currentPage = 0;
+let totalPages = 0;
+let dayGroups = [];
 
-export function renderSchedule(games) {
+export function renderSchedulePage(games) {
 
+    if (games.length === 0) {
+        const container = document.getElementById("schedule");
+        container.innerHTML = "";
+    
+        renderSubscribeButtons(container);
+        renderEmptyState(container);
+    } else {
+        dayGroups = groupGamesByDay(games);
+        renderSchedule();
+    }
+}
+
+function renderSchedule() {
     const container = document.getElementById("schedule");
     container.innerHTML = "";
 
     renderSubscribeButtons(container);
-
-    if (games.length === 0) {
-        renderEmptyState(container);
-    } else {
-        const dayGroups = groupGamesByDay(games);
-        const page = getCurrentPage(dayGroups);
-        //console.log(dayGroups);
-        renderGames(container, page);
-        renderPagination(container, dayGroups);
-    }
+    const page = getCurrentPage(dayGroups);
+    renderGames(container, page);
+    renderPagination(container, dayGroups);
 }
 
 function renderSubscribeButtons(container) {
@@ -100,7 +108,7 @@ function groupGamesByDay(games) {
 }
 
 function renderPagination(container, dayGroups) {
-    const totalPages = Math.ceil(dayGroups.length / DAYS_PER_PAGE);
+    totalPages = Math.ceil(dayGroups.length / DAYS_PER_PAGE);
 
     if (totalPages <= 1)
         return;
@@ -264,4 +272,18 @@ function getCurrentPage(dayGroups) {
     const start = currentPage * DAYS_PER_PAGE;
     const end = start + DAYS_PER_PAGE;
     return dayGroups.slice(start, end);
+}
+
+function previousPage() {
+    if (currentPage > 0) {
+        currentPage--;
+        renderSchedule();
+    }
+}
+
+function nextPage() {
+    if (currentPage < totalPages) {
+        currentPage++;
+        renderSchedule();
+    }
 }
