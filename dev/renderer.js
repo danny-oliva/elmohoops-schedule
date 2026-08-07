@@ -108,11 +108,6 @@ function renderPagination(container, dayGroups) {
     const nav = document.createElement("nav");
     nav.className = "schedule-pagination";
 
-    // Top stripe
-    const stripe = document.createElement("div");
-    stripe.className = "schedule-stripe schedule-pagination-stripe";
-    nav.appendChild(stripe);
-
     // Content wrapper
     const content = document.createElement("div");
     content.className = "schedule-pagination-content";
