@@ -12,7 +12,7 @@ export function renderSchedule(games) {
     } else {
         const dayGroups = groupGamesByDay(games);
         console.log(dayGroups);
-        renderGames(container, games);
+        renderGames(container, dayGroups);
     }
 }
 
@@ -87,7 +87,7 @@ function groupGamesByDay(games) {
 
         if (!group) {
             group = {
-                date: key,
+                gameDay: key,
                 games: []
             };   
             dayGroups.push(group);
@@ -99,8 +99,19 @@ function groupGamesByDay(games) {
     return dayGroups;
 }
 
-function renderGames(container, games) {
-    
+function renderGames(container, dayGroups) {
+
+    for (const dayGroup of dayGroups) {
+        const daySection = createDaySection(dayGroup);
+
+        const dayGamesContainer = document.createElement("div");
+        dayGamesContainer.className = "schedule-day-games";
+
+        for (const game of dayGroup.games) {
+            dayGamesContainer.appendChild(createGameCard(game));
+        }
+    }
+    /*
     let currentDay = "";
     let dayGamesContainer = null;
 
@@ -144,7 +155,36 @@ function renderGames(container, games) {
         // Add this game card to the current day
         //
         dayGamesContainer.appendChild(createGameCard(game));
-    });
+    });*/
+}
+
+function createDaySection(dayGroup) {
+    //
+    // Create the day section
+    //
+    const daySection = document.createElement("section");
+    daySection.className = "schedule-day";
+
+    //
+    // Date heading
+    //
+    const heading = document.createElement("h2");
+    heading.className = "schedule-date";
+    heading.textContent = dayGroup.gameDay;
+
+    //
+    // Card container
+    //
+    //dayGamesContainer = document.createElement("div");
+    //dayGamesContainer.className = "schedule-day-games";
+
+    //
+    // Build hierarchy
+    //
+    daySection.appendChild(heading);
+    //daySection.appendChild(dayGamesContainer);
+
+    return daySection;
 }
 
 function createGameCard(game) {
