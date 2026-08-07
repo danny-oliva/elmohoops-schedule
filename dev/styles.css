@@ -136,10 +136,51 @@
 }
 
 .schedule-pagination {
+    background: white;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    margin: 40px auto;
+    max-width: 520px;
+    overflow: hidden;
+}
+
+.schedule-pagination:hover {
+    box-shadow: 0 4px 10px rgba(0,0,0,.12);
+    border-color: #9E1B32;
+}
+
+.schedule-pagination-stripe {
+    margin: 0;
+    border-radius: 0;
+    background: #9E1B32;
+}
+
+.schedule-pagination-content {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin: 30px 0;
+    padding: 18px 22px;
+}
+
+.schedule-pagination button {
+    background: none;
+    border: none;
+    color: #555;
+    font-weight: bold;
+    cursor: pointer;
+    font-size: .95rem;
+    padding: 6px;
+    transition: color .15s ease;
+}
+
+.schedule-pagination button:hover {
+    color: #9E1B32;
+}
+
+.schedule-page-label {
+    font-weight: bold;
+    color: #666;
+    letter-spacing: .05em;
 }
 
 @media (hover: none) {
