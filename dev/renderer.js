@@ -80,7 +80,7 @@ function groupGamesByDay(games) {
     for (const game of games) {
         const key = game.gameDay;
         let group = dayGroups.find(
-            g => g.date === key
+            g => g.gameDay === key
         );
         if (!group) {
             group = {
