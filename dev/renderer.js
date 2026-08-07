@@ -108,18 +108,29 @@ function renderPagination(container, dayGroups) {
     const nav = document.createElement("nav");
     nav.className = "schedule-pagination";
 
+    // Top stripe
+    const stripe = document.createElement("div");
+    stripe.className = "schedule-stripe schedule-pagination-stripe";
+
+    // Content wrapper
+    const content = document.createElement("div");
+    content.className = "schedule-pagination-content";
+
     const previous = document.createElement("button");
     previous.textContent = "← Prev";
-    nav.appendChild(previous);
 
     const label = document.createElement("span");
     label.className = "schedule-page-label";
     label.textContent = `${currentPage + 1} / ${totalPages}`;
-    nav.appendChild(label);
 
     const next = document.createElement("button");
     next.textContent = "Next →";
-    nav.appendChild(next);
+
+    content.appendChild(previous);
+    content.appendChild(label);
+    content.appendChild(next);
+    
+    nav.appendChild(content);
 
     container.appendChild(nav);
 }
