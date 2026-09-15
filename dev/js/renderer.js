@@ -34,6 +34,10 @@ function renderSchedule() {
     });
 }
 
+function buildGoogleCalendarSubscriptionUrl(calendarId) {
+    return `https://calendar.google.com/calendar/u/0/r?cid=${encodeURIComponent(calendarId)}`;
+}
+
 function renderSubscribeButtons(container) {
     const section = document.createElement("section");
     section.className = "schedule-subscribe";
@@ -60,7 +64,7 @@ function renderSubscribeButtons(container) {
         const button = document.createElement("a");
         button.className = "schedule-subscribe-button";
         button.style.borderTopColor = calendar.color;
-        button.href = calendar.subscriptionUrl;
+        button.href = buildGoogleCalendarSubscriptionUrl(calendar.id);
         button.target = "_blank";
         button.rel = "noopener noreferrer";
         button.textContent = calendar.name;
