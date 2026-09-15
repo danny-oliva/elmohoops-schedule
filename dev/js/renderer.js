@@ -1,6 +1,6 @@
 import { CONFIG } from "./config.js";
 
-const DAYS_PER_PAGE = 4;
+const DAYS_PER_PAGE = CONFIG.pagination.dateGroupsPerPage;
 let currentPage = 0;
 let totalPages = 0;
 let dayGroups = [];
@@ -166,30 +166,14 @@ function renderGames(container, dayGroups) {
 }
 
 function createDaySection(dayGroup) {
-    //
-    // Create the day section
-    //
     const daySection = document.createElement("section");
     daySection.className = "schedule-day";
 
-    //
-    // Date heading
-    //
     const heading = document.createElement("h2");
     heading.className = "schedule-date";
     heading.textContent = dayGroup.gameDay;
 
-    //
-    // Card container
-    //
-    //dayGamesContainer = document.createElement("div");
-    //dayGamesContainer.className = "schedule-day-games";
-
-    //
-    // Build hierarchy
-    //
     daySection.appendChild(heading);
-    //daySection.appendChild(dayGamesContainer);
 
     return daySection;
 }
@@ -291,7 +275,7 @@ function previousPage() {
 }
 
 function nextPage() {
-    if (currentPage < totalPages) {
+    if (currentPage < totalPages - 1) {
         currentPage++;
         renderSchedule();
     }

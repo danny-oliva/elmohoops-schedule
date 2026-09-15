@@ -8,7 +8,6 @@ async function start() {
 
     console.log("El Mo Hoops Schedule starting...");
 
-
     try {
         const games = [];
         
@@ -26,8 +25,8 @@ async function start() {
             });
         }
         
-        games.sort((a, b) => a.start - b.start);
-        
+        sortGames(games);
+
         renderSchedulePage(games);
     }
     catch(error) {
