@@ -1,6 +1,6 @@
 import { CONFIG } from "./config.js";
 import { getCalendarEvents } from "./calendar.js";
-import { createGame } from "./model.js";
+import { createGame, createTeamEvent } from "./model.js";
 import { renderSchedulePage } from "./renderer.js";
 import { sortGames } from "./utils.js";
 
@@ -19,9 +19,11 @@ async function start() {
                 await getCalendarEvents(calendar.id);
         
             events.forEach(event => {
-                games.push(
-                    createGame(calendar, event)
-                );
+                const scheduleItem = calendar.type === "event"
+                    ? createTeamEvent(calendar, event)
+                    : createGame(calendar, event);
+
+                games.push(scheduleItem);
             });
         }
         

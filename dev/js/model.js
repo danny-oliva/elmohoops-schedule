@@ -1,4 +1,3 @@
-
 function parseGoogleDate(dateString) {
     const [year, month, day] = dateString
         .split("-")
@@ -23,7 +22,7 @@ function parseTitle(title) {
     };
 }
 
-function formatGameDay(date) {
+function formatScheduleDay(date) {
     return date.toLocaleDateString(undefined, {
         weekday: "short",
         month: "short",
@@ -32,15 +31,14 @@ function formatGameDay(date) {
     });
 }
 
-function formatGameTime(date) {
+function formatScheduleTime(date) {
     return date.toLocaleTimeString(undefined, {
         hour: "numeric",
         minute: "2-digit"
     });
 }
 
-export function createGame(calendar, event) {
-    const parsed = parseTitle(event.summary);
+function getEventTimes(event) {
     const allDay = !!event.start.date;
     const startTime = event.start.dateTime
         ? new Date(event.start.dateTime)
@@ -48,24 +46,46 @@ export function createGame(calendar, event) {
     const endTime = event.end.dateTime
         ? new Date(event.end.dateTime)
         : parseGoogleDate(event.end.date);
-    const strGameDay = formatGameDay(startTime);
-    const strGameTime = allDay ? "TBD" : formatGameTime(startTime);
-    
+
+    return { allDay, startTime, endTime };
+}
+
+function createCommonFields(calendar, event) {
+    const { allDay, startTime, endTime } = getEventTimes(event);
 
     return {
-        team: calendar.name,
-        teamShortTeam: calendar.shortName,
+        type: calendar.type,
         teamColor: calendar.color,
-        opponent: parsed.opponent.replace(/\s*\[Time TBD\]\s*/i, ""),
-        homeAway: parsed.homeAway,
-        allDay: allDay,
-        gameDay: strGameDay,
-        gameTime: strGameTime,
+        allDay,
+        gameDay: formatScheduleDay(startTime),
+        gameTime: allDay ? "TBD" : formatScheduleTime(startTime),
         start: startTime,
         end: endTime,
         location: event.location || "",
         shortLocation: event.location ? event.location.split(",")[0] : "",
         description: event.description || "",
         source: event
+    };
+}
+
+export function createGame(calendar, event) {
+    const parsed = parseTitle(event.summary);
+
+    return {
+        ...createCommonFields(calendar, event),
+        team: calendar.name,
+        teamShortTeam: calendar.shortName,
+        opponent: parsed.opponent.replace(/\s*\[Time TBD\]\s*/i, ""),
+        homeAway: parsed.homeAway
+    };
+}
+
+export function createTeamEvent(calendar, event) {
+    const item = createCommonFields(calendar, event);
+
+    return {
+        ...item,
+        title: event.summary || "Team Event",
+        endTime: item.allDay ? "" : formatScheduleTime(item.end)
     };
 }
