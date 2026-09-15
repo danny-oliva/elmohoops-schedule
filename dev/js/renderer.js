@@ -156,8 +156,12 @@ function renderGames(container, dayGroups) {
         const dayGamesContainer = document.createElement("div");
         dayGamesContainer.className = "schedule-day-games";
 
-        for (const game of dayGroup.games) {
-            dayGamesContainer.appendChild(createGameCard(game));
+        for (const item of dayGroup.games) {
+            const card = item.type === "event"
+                ? createEventCard(item)
+                : createGameCard(item);
+
+            dayGamesContainer.appendChild(card);
         }
 
         daySection.appendChild(dayGamesContainer);
@@ -254,6 +258,84 @@ function createGameCard(game) {
         const notes = document.createElement("div");
         notes.className = "schedule-description";
         notes.textContent = game.description;
+
+        card.appendChild(notes);
+    }
+
+    return card;
+}
+
+function createEventCard(event) {
+
+    const card = document.createElement("article");
+    card.className = "schedule-card schedule-event-card";
+
+    //
+    // Create link to Google Calendar event
+    //
+    if (event.source?.htmlLink) {
+        card.style.cursor = "pointer";
+        card.addEventListener("click", () => {
+            window.open(event.source.htmlLink, "_blank");
+        });
+    }
+
+    //
+    // Color Stripe
+    //
+    const stripe = document.createElement("div");
+    stripe.className = "schedule-stripe";
+    stripe.style.backgroundColor = event.teamColor;
+
+    card.appendChild(stripe);
+
+    //
+    // Time / time range
+    //
+    const time = document.createElement("div");
+    time.className = "schedule-time";
+    time.textContent = event.allDay
+        ? "TBD"
+        : `${event.gameTime} – ${event.endTime}`;
+
+    card.appendChild(time);
+
+    //
+    // Event title
+    //
+    const title = document.createElement("div");
+    title.className = "schedule-event-title";
+    title.textContent = event.title;
+
+    card.appendChild(title);
+
+    //
+    // Optional location
+    //
+    if (event.location) {
+        const location = document.createElement("a");
+        location.className = "schedule-location";
+        location.textContent = `📍 ${event.shortLocation}`;
+        const mapsUrl =
+            "https://www.google.com/maps/search/?api=1&query=" +
+            encodeURIComponent(event.location);
+        location.href = mapsUrl;
+        location.target = "_blank";
+        location.rel = "noopener noreferrer";
+        location.addEventListener("click", (clickEvent) => {
+            clickEvent.stopPropagation();
+        });
+
+        card.appendChild(location);
+    }
+
+    //
+    // Optional notes
+    //
+    if (event.description) {
+        const notes = document.createElement("div");
+        notes.className = "schedule-description";
+        notes.textContent = event.description;
 
         card.appendChild(notes);
     }
