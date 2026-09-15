@@ -3,7 +3,7 @@
 Responsive schedule application for the El Modena Vanguard Boys Basketball website.
 
 The application is hosted with GitHub Pages and embedded into the main
-ElMoHoops Wix website. Schedule data is retrieved from Google Calendar using
+ELMO Hoops Wix website. Schedule data is retrieved from Google Calendar using
 the Google Calendar API.
 
 ## Live Sites
@@ -21,7 +21,7 @@ the Wix website rather than used as a standalone website.
 
 ## Architecture
 
-The ElMoHoops website uses three services:
+The ELMO Hoops website uses three services:
 
 ### Wix
 
@@ -66,14 +66,15 @@ Calendar or Google Sheets without modifying application code.
 
 Schedule information is maintained in Google Calendar.
 
-The application supports separate calendars for the El Modena basketball
+The application supports separate calendars for the El Modena Boys Basketball
 teams and combines their events into one chronological schedule.
 
 Current team configuration includes:
 
 - Varsity
 - Junior Varsity
-- Freshman
+- Frosh/Soph
+- Freshmen (usually hidden, on rare occasion, the school has 4 teams)
 
 Team calendars can be enabled or disabled in `js/config.js`.
 
