@@ -3,7 +3,7 @@ export const CONFIG = {
     apiKey: "AIzaSyDRcIoZD998EyGApL6rlC4PAy1HEUH34b4",
 
     pagination: {
-        dateGroupsPerPage: 4
+        dateGroupsPerPage: 3
     },
 
     calendars: {
