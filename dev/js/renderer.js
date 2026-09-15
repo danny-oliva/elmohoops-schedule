@@ -130,8 +130,15 @@ function renderPagination(container, dayGroups) {
     const content = document.createElement("div");
     content.className = "schedule-pagination-content";
 
+    const first = document.createElement("button");
+    first.textContent = "«";
+    first.setAttribute("aria-label", "First page");
+    first.title = "First page";
+    first.addEventListener("click", firstPage);
+    first.disabled = currentPage === 0;
+
     const previous = document.createElement("button");
-    previous.textContent = "← Prev";
+    previous.textContent = "Prev";
     previous.addEventListener("click", previousPage);
     previous.disabled = currentPage === 0;
 
@@ -140,13 +147,22 @@ function renderPagination(container, dayGroups) {
     label.textContent = `${currentPage + 1} / ${totalPages}`;
 
     const next = document.createElement("button");
-    next.textContent = "Next →";
+    next.textContent = "Next";
     next.addEventListener("click", nextPage);
     next.disabled = currentPage === totalPages - 1;
 
+    const last = document.createElement("button");
+    last.textContent = "»";
+    last.setAttribute("aria-label", "Last page");
+    last.title = "Last page";
+    last.addEventListener("click", lastPage);
+    last.disabled = currentPage === totalPages - 1;
+
+    content.appendChild(first);
     content.appendChild(previous);
     content.appendChild(label);
     content.appendChild(next);
+    content.appendChild(last);
     
     nav.appendChild(content);
 
@@ -348,6 +364,13 @@ function getCurrentPage(dayGroups) {
     return dayGroups.slice(start, end);
 }
 
+function firstPage() {
+    if (currentPage > 0) {
+        currentPage = 0;
+        renderSchedule();
+    }
+}
+
 function previousPage() {
     if (currentPage > 0) {
         currentPage--;
@@ -358,6 +381,13 @@ function previousPage() {
 function nextPage() {
     if (currentPage < totalPages - 1) {
         currentPage++;
+        renderSchedule();
+    }
+}
+
+function lastPage() {
+    if (currentPage < totalPages - 1) {
+        currentPage = totalPages - 1;
         renderSchedule();
     }
 }
