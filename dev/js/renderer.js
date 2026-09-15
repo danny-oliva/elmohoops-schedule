@@ -5,16 +5,16 @@ let currentPage = 0;
 let totalPages = 0;
 let dayGroups = [];
 
-export function renderSchedulePage(games) {
+export function renderSchedulePage(items) {
 
-    if (games.length === 0) {
+    if (items.length === 0) {
         const container = document.getElementById("schedule");
         container.innerHTML = "";
     
         renderSubscribeButtons(container);
         renderEmptyState(container);
     } else {
-        dayGroups = groupGamesByDay(games);
+        dayGroups = groupItemsByDay(items);
         renderSchedule();
     }
 }
@@ -25,7 +25,7 @@ function renderSchedule() {
 
     renderSubscribeButtons(container);
     const page = getCurrentPage(dayGroups);
-    renderGames(container, page);
+    renderScheduleItems(container, page);
     renderPagination(container, dayGroups);
 
     document.getElementById("schedule").scrollIntoView({
@@ -93,21 +93,21 @@ function renderEmptyState(container) {
     container.appendChild(empty);
 }
 
-function groupGamesByDay(games) {
+function groupItemsByDay(items) {
     const dayGroups = [];
-    for (const game of games) {
-        const key = game.gameDay;
+    for (const item of items) {
+        const key = item.scheduleDay;
         let group = dayGroups.find(
-            g => g.gameDay === key
+            g => g.scheduleDay === key
         );
         if (!group) {
             group = {
-                gameDay: key,
-                games: []
+                scheduleDay: key,
+                items: []
             };   
             dayGroups.push(group);
         }
-        group.games.push(game);
+        group.items.push(item);
     }
     return dayGroups;
 }
@@ -148,7 +148,7 @@ function renderPagination(container, dayGroups) {
     container.appendChild(nav);
 }
 
-function renderGames(container, dayGroups) {
+function renderScheduleItems(container, dayGroups) {
 
     for (const dayGroup of dayGroups) {
         const daySection = createDaySection(dayGroup);
@@ -156,7 +156,7 @@ function renderGames(container, dayGroups) {
         const dayGamesContainer = document.createElement("div");
         dayGamesContainer.className = "schedule-day-games";
 
-        for (const item of dayGroup.games) {
+        for (const item of dayGroup.items) {
             const card = item.type === "event"
                 ? createEventCard(item)
                 : createGameCard(item);
@@ -175,7 +175,7 @@ function createDaySection(dayGroup) {
 
     const heading = document.createElement("h2");
     heading.className = "schedule-date";
-    heading.textContent = dayGroup.gameDay;
+    heading.textContent = dayGroup.scheduleDay;
 
     daySection.appendChild(heading);
 
@@ -211,7 +211,7 @@ function createGameCard(game) {
     //
     const time = document.createElement("div");
     time.className = "schedule-time";
-    time.textContent = game.gameTime;
+    time.textContent = game.startTime;
 
     card.appendChild(time);
 
@@ -296,7 +296,7 @@ function createEventCard(event) {
     time.className = "schedule-time";
     time.textContent = event.allDay
         ? "ALL DAY"
-        : `${event.gameTime} – ${event.endTime}`;
+        : `${event.startTime} – ${event.endTime}`;
 
     card.appendChild(time);
 

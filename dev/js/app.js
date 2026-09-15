@@ -2,14 +2,14 @@ import { CONFIG } from "./config.js";
 import { getCalendarEvents } from "./calendar.js";
 import { createGame, createTeamEvent } from "./model.js";
 import { renderSchedulePage } from "./renderer.js";
-import { sortGames } from "./utils.js";
+import { sortScheduleItems } from "./utils.js";
 
 async function start() {
 
     console.log("El Mo Hoops Schedule starting...");
 
     try {
-        const games = [];
+        const scheduleItems = [];
         
         for (const calendar of Object.values(CONFIG.calendars)) {
             if (!calendar.enabled)
@@ -23,13 +23,13 @@ async function start() {
                     ? createTeamEvent(calendar, event)
                     : createGame(calendar, event);
 
-                games.push(scheduleItem);
+                scheduleItems.push(scheduleItem);
             });
         }
         
-        sortGames(games);
+        sortScheduleItems(scheduleItems);
 
-        renderSchedulePage(games);
+        renderSchedulePage(scheduleItems);
     }
     catch(error) {
         console.error("ERROR:");
