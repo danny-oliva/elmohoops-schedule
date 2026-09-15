@@ -6,6 +6,7 @@ let totalPages = 0;
 let dayGroups = [];
 
 export function renderSchedulePage(items) {
+    currentPage = 0;
 
     if (items.length === 0) {
         const container = document.getElementById("schedule");
@@ -238,22 +239,11 @@ function createGameCard(game) {
     card.appendChild(opponent);
 
     //
-    // Location
+    // Optional location
     //
-    const location = document.createElement("a");
-    location.className = "schedule-location";
-    location.textContent = `📍 ${game.shortLocation}`;
-    const mapsUrl =
-        "https://www.google.com/maps/search/?api=1&query=" +
-        encodeURIComponent(game.location);
-    location.href = mapsUrl;
-    location.target = "_blank";
-    location.rel = "noopener noreferrer";
-    location.addEventListener("click", (event) => {
-        event.stopPropagation();
-    });
-
-    card.appendChild(location);
+    if (game.location) {
+        card.appendChild(createLocationLink(game));
+    }
 
     //
     // Optional notes
@@ -300,7 +290,9 @@ function createEventCard(event) {
     time.className = "schedule-time";
     time.textContent = event.allDay
         ? "ALL DAY"
-        : `${event.startTime} – ${event.endTime}`;
+        : event.endTime
+            ? `${event.startTime} – ${event.endTime}`
+            : event.startTime;
 
     card.appendChild(time);
 
@@ -317,20 +309,7 @@ function createEventCard(event) {
     // Optional location
     //
     if (event.location) {
-        const location = document.createElement("a");
-        location.className = "schedule-location";
-        location.textContent = `📍 ${event.shortLocation}`;
-        const mapsUrl =
-            "https://www.google.com/maps/search/?api=1&query=" +
-            encodeURIComponent(event.location);
-        location.href = mapsUrl;
-        location.target = "_blank";
-        location.rel = "noopener noreferrer";
-        location.addEventListener("click", (clickEvent) => {
-            clickEvent.stopPropagation();
-        });
-
-        card.appendChild(location);
+        card.appendChild(createLocationLink(event));
     }
 
     //
@@ -345,6 +324,22 @@ function createEventCard(event) {
     }
 
     return card;
+}
+
+function createLocationLink(item) {
+    const location = document.createElement("a");
+    location.className = "schedule-location";
+    location.textContent = `📍 ${item.shortLocation}`;
+    location.href =
+        "https://www.google.com/maps/search/?api=1&query=" +
+        encodeURIComponent(item.location);
+    location.target = "_blank";
+    location.rel = "noopener noreferrer";
+    location.addEventListener("click", (event) => {
+        event.stopPropagation();
+    });
+
+    return location;
 }
 
 function getCurrentPage(dayGroups) {

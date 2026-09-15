@@ -41,8 +41,7 @@ export const CONFIG = {
             color: "#2F80ED",
             id: "8vufl29g9kca99hc9rifrm9s50@group.calendar.google.com",
             enabled: true
-        }
-,
+        },
 
         teamEvents: {
             name: "Team Events",

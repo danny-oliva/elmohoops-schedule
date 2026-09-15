@@ -74,7 +74,6 @@ export function createGame(calendar, event) {
     return {
         ...createCommonFields(calendar, event),
         team: calendar.name,
-        teamShortTeam: calendar.shortName,
         opponent: parsed.opponent.replace(/\s*\[Time TBD\]\s*/i, ""),
         homeAway: parsed.homeAway
     };
@@ -86,6 +85,8 @@ export function createTeamEvent(calendar, event) {
     return {
         ...item,
         title: event.summary || "Team Event",
-        endTime: item.allDay ? "" : formatScheduleTime(item.end)
+        endTime: item.allDay || !event.end?.dateTime
+            ? ""
+            : formatScheduleTime(item.end)
     };
 }
