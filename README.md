@@ -4,7 +4,7 @@ Responsive schedule application for the El Modena Vanguard Boys
 Basketball website.
 
 The application is hosted with GitHub Pages and embedded into the main
-ElMoHoops Wix website. Schedule data is retrieved from Google Calendar
+ELMO Hoops Wix website. Schedule data is retrieved from Google Calendar
 using the Google Calendar API.
 
 ## Live Sites
@@ -22,7 +22,7 @@ inside the Wix website rather than used as a standalone website.
 
 ## Architecture
 
-The ElMoHoops website uses three services:
+The ELMO Hoops website uses three services:
 
 ### Wix
 
@@ -208,7 +208,7 @@ Recommended workflow:
 5.  Commit the production changes to `main`.
 6.  GitHub Pages automatically redeploys the site.
 7.  Verify the production GitHub Pages URL.
-8.  Verify the embedded schedule on ElMoHoops.org.
+8.  Verify the embedded schedule on ELMOHoops.org.
 
 For significant stable releases, create a Git tag/release.
 
@@ -237,9 +237,9 @@ Do not share a common GitHub username/password between website managers.
 The outgoing Website Manager should ensure that the incoming Website
 Manager has access to:
 
--   ElMoHoops Wix website
--   ElMoHoops GitHub organization
--   ElMoHoops Google account / required Google Calendars and Sheets
+-   ELMO Hoops Wix website
+-   ELMO Hoops GitHub organization
+-   ELMO Hoops Google account / required Google Calendars and Sheets
 -   Google Cloud project used for the Calendar API
 
 ## Related Applications
