@@ -295,7 +295,7 @@ function createEventCard(event) {
     const time = document.createElement("div");
     time.className = "schedule-time";
     time.textContent = event.allDay
-        ? "TBD"
+        ? "ALL DAY"
         : `${event.gameTime} – ${event.endTime}`;
 
     card.appendChild(time);
