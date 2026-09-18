@@ -1,3 +1,9 @@
+html,
+body {
+    background: #e8c28d url("../dev-assets/court_bg.jpg") repeat;
+    background-size: 300px auto;
+}
+
 ::-webkit-scrollbar {
     width: 8px;
 }
